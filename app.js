@@ -5,12 +5,15 @@ var request = require('request');
 app.set('view engine', 'ejs');
 
 // Routes
-app.get('/search', function (req, res) {
-
+app.get('/', function (req, res) {
+    res.render('search');
 });
 
 app.get('/results', function (req, res) {
-    request('http://www.omdbapi.com/?apikey=thewdb&plot=full&t=Cast+Away', function (error, response, body) {
+    var apiCall = 'http://www.omdbapi.com/?apikey=thewdb&plot=full&t=';
+    var search = req.query.search;
+    apiCall += search;
+    request(apiCall, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             var data = JSON.parse(body);
             res.render('results', {

@@ -10,17 +10,17 @@ app.get('/search', function (req, res) {
 });
 
 app.get('/results', function (req, res) {
-    request('http://www.omdbapi.com/?apikey=thewdb&plot=full&t=Dirty+Dancing', function (error, response, body) {
+    request('http://www.omdbapi.com/?apikey=thewdb&plot=full&t=Cast+Away', function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            var results = JSON.parse(body);
+            var data = JSON.parse(body);
             res.render('results', {
-                titleVar: results.Title,
-                yearVar: results.Year,
-                genreVar: results.Genre,
-                durationVar: results.Runtime,
-                castVar: results.Actors,
-                posterVar: results.Poster,
-                plotVar: results.Plot,
+                titleVar: data.Title,
+                yearVar: data.Year,
+                genreVar: data.Genre,
+                durationVar: data.Runtime,
+                castVar: data.Actors,
+                posterVar: data.Poster,
+                plotVar: data.Plot,
             });
         }
     });
